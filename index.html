@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation GGC</title>
+    <link rel="icon" type="image/png" href="logo-ggc.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif;
+            min-height: 100vh;
+            background: #f8fafb;
+            color: #1a1a2e;
+        }
+
+        .top-bar {
+            height: 5px;
+            background: linear-gradient(90deg, #1e88e5, #43a047, #8bc34a);
+        }
+
+        .page {
+            min-height: calc(100vh - 5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.25rem;
+            position: relative;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 380px;
+            background: linear-gradient(180deg, #eef6f0 0%, #f8fafb 100%);
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 620px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .logo-mark {
+            display: inline-block;
+            margin-bottom: 1.25rem;
+        }
+
+        .logo-mark img {
+            height: 72px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #111827;
+            margin-bottom: 0.4rem;
+        }
+
+        .header .subtitle {
+            color: #6b7280;
+            font-size: 0.95rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
+            padding: 0.35rem 0.9rem;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        .date-badge svg {
+            width: 13px;
+            height: 13px;
+            color: #9ca3af;
+        }
+
+        .links-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .link-card {
+            background: #fff;
+            border: 1px solid #e8eaed;
+            border-radius: 14px;
+            padding: 1.15rem 1.35rem;
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .link-card:nth-child(1) { animation-delay: 0.08s; }
+        .link-card:nth-child(2) { animation-delay: 0.14s; }
+        .link-card:nth-child(3) { animation-delay: 0.20s; }
+        .link-card:nth-child(4) { animation-delay: 0.26s; }
+        .link-card:nth-child(5) { animation-delay: 0.32s; }
+
+        .link-card:hover {
+            border-color: #d1d5db;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .card-number {
+            position: absolute;
+            top: 0.65rem;
+            right: 0.9rem;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #d1d5db;
+            letter-spacing: 0.05em;
+        }
+
+        .link-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.25s;
+        }
+
+        .link-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .link-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .link-info h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.15rem;
+            letter-spacing: -0.01em;
+        }
+
+        .link-info p {
+            font-size: 0.78rem;
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .link-arrow {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+
+        .link-arrow svg {
+            width: 14px;
+            height: 14px;
+            color: #9ca3af;
+            transition: all 0.25s;
+        }
+
+        .link-card:hover .link-arrow {
+            background: #e5e7eb;
+        }
+
+        .link-card:hover .link-arrow svg {
+            color: #6b7280;
+            transform: translateX(1.5px);
+        }
+
+        .icon-iscc { background: #fff; border: 1px solid #e2e8f0; }
+        .link-card:hover .icon-iscc { background: #f8fafc; }
+
+        .icon-green { background: #ecfdf5; }
+        .icon-green svg { color: #059669; }
+        .link-card:hover .icon-green { background: #d1fae5; }
+
+        .icon-slide { background: #fffbeb; }
+        .icon-slide svg { color: #d97706; }
+        .link-card:hover .icon-slide { background: #fef3c7; }
+
+        .icon-sss { background: #f8fafc; border: 1px solid #e2e8f0; }
+        .link-card:hover .icon-sss { background: #f1f5f9; }
+
+        .icon-landometer { background: #f5f3ff; }
+        .link-card:hover .icon-landometer { background: #ede9fe; }
+
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e8eaed;
+        }
+
+        .footer p {
+            color: #c4c8cf;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .page { padding: 2rem 1rem; }
+            .header h1 { font-size: 1.5rem; }
+            .link-card { padding: 1rem 1.1rem; gap: 0.9rem; }
+            .link-icon { width: 40px; height: 40px; border-radius: 10px; }
+            .link-icon svg { width: 18px; height: 18px; }
+            .link-arrow { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar"></div>
+    <div class="page">
+        <div class="container">
+            <div class="header">
+                <div class="logo-mark"><img src="logo-ggc.png" alt="Global Green Chemicals"></div>
+                <h1>Presentation<br>GGC</h1>
+                <p class="subtitle">รวมลิงก์เอกสารประกอบการนำเสนอ</p>
+                <span class="date-badge">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    9 กรกฎาคม 2569
+                </span>
+            </div>
+
+            <div class="links-grid">
+                <a href="https://iscc.smartshiftsolutions.site/" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-icon icon-iscc">
+                        <img src="logo-iscc.jpg" alt="ISCC" style="width:34px;height:auto;border-radius:4px;">
+                    </div>
+                    <div class="link-info">
+                        <h3>ISCC Website (Mockup)</h3>
+                        <p>ตัวอย่างระบบ</p>
+                    </div>
+                    <span class="card-number">01</span>
+                    <div class="link-arrow">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </a>
+
+                <a href="https://greensustain.smartshiftsolutions.site/" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-icon icon-green">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                    </div>
+                    <div class="link-info">
+                        <h3>พื้นที่ปลูกป่าและปาล์มน้ำมัน Website (Mockup)</h3>
+                        <p>ตัวอย่างระบบ</p>
+                    </div>
+                    <span class="card-number">02</span>
+                    <div class="link-arrow">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </a>
+
+                <a href="https://docs.google.com/presentation/d/1TtXZekQWsxtYdX1ULtfpvGNfcjIzYziCqGEvl1QFQ_A/edit?usp=sharing" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-icon icon-slide">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                    </div>
+                    <div class="link-info">
+                        <h3>Slide Presentation</h3>
+                        <p>สไลด์นำเสนอ — Google Slides</p>
+                    </div>
+                    <span class="card-number">03</span>
+                    <div class="link-arrow">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </a>
+
+                <a href="https://www.canva.com/design/DAHIwWzbW_o/Y-2pg8Qo9VmzsYNOiV9UPQ/view?utm_content=DAHIwWzbW_o&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h32d4174a48" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-icon icon-sss">
+                        <img src="logo-sss.png" alt="Smart Shift Solutions" style="width:36px;height:auto;border-radius:4px;">
+                    </div>
+                    <div class="link-info">
+                        <h3>SSS Profile</h3>
+                        <p>โปรไฟล์ SSS</p>
+                    </div>
+                    <span class="card-number">04</span>
+                    <div class="link-arrow">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </a>
+
+                <a href="https://www.canva.com/design/DAGSBnLf4xY/LMnc3pyUDyxc8X6p9snEYw/view?utm_content=DAGSBnLf4xY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h96f9db19c5" target="_blank" rel="noopener" class="link-card">
+                    <div class="link-icon icon-landometer">
+                        <img src="logo-landometer.png" alt="Landometer" style="width:28px;height:auto;">
+                    </div>
+                    <div class="link-info">
+                        <h3>Landometer Profile</h3>
+                        <p>โปรไฟล์ Landometer</p>
+                    </div>
+                    <span class="card-number">05</span>
+                    <div class="link-arrow">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </a>
+            </div>
+
+            <div class="footer">
+                <p>Global Green Chemicals (GGC)</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
